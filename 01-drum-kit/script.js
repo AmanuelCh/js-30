@@ -14,7 +14,29 @@ const playSound = (e) => {
   key.classList.add("playing");
 };
 
-window.addEventListener("keydown", playSound);
+const playSoundOnClick = function () {
+  keys.forEach((key) => {
+    key.addEventListener("click", function () {
+      if (!this) return;
+
+      // select the audio and key based on click
+      const audio = document.querySelector(
+        `audio[data-key="${this.dataset.key}"]`
+      );
+      const key = document.querySelector(
+        `.key[data-key="${this.dataset.key}"]`
+      );
+
+      if (!audio) return;
+
+      audio.currentTime = 0;
+      audio.play();
+
+      // add playing class on clicked key
+      key.classList.add("playing");
+    });
+  });
+};
 
 // remove playing class after the transition is over
 const removeTransition = function (e) {
@@ -28,3 +50,6 @@ const keys = document.querySelectorAll(".key");
 keys.forEach((key) => {
   key.addEventListener("transitionend", removeTransition);
 });
+
+window.addEventListener("keydown", playSound);
+window.addEventListener("click", playSoundOnClick);
