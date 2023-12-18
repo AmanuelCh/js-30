@@ -12,3 +12,4 @@
 
 - fixed the glitch that happens due to the `transition` property when the second gets 60
 - UI redesign
+- added a ticking sound effect

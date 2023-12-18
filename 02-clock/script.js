@@ -4,6 +4,15 @@ const hourHand = document.querySelector(".hour-hand");
 const minuteHand = document.querySelector(".min-hand");
 const secondHand = document.querySelector(".second-hand");
 const allHands = document.querySelectorAll(".hand");
+const digitalTime = document.querySelector(".digital-time");
+const tickingSound = document.querySelector(".clock-ticking");
+
+const formatTime = (t) => {
+  if (t < 10) {
+    t = "0" + t;
+  }
+  return t;
+};
 
 const setDate = () => {
   const now = new Date();
@@ -23,9 +32,17 @@ const setDate = () => {
 
   if (secondsDegrees === 90) {
     allHands.forEach((hand) => (hand.style.transition = "none"));
+
+    tickingSound.pause();
   } else {
     allHands.forEach((hand) => (hand.style.transition = ""));
+
+    tickingSound.play();
   }
+
+  digitalTime.innerHTML = `${formatTime(hours)} : ${formatTime(
+    minutes
+  )} : ${formatTime(seconds)}`;
 };
 
 setInterval(setDate, 1000);
